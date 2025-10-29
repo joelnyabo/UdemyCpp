@@ -13,7 +13,7 @@ void ausgabe(std::array<std::int32_t, N> tab)
 {
     for(auto i = 0U; i<tab.size(); i++)
     {
-        std::cout<<tab[i]<<" ";
+        std::cout<<tab[i++]<<" ";
     }
 }
 int main()
