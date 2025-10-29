@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/03_ArrayPointer/3_2",
-      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/03_ArrayPointer/3_2/build/Debug/outDebug",
+      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/03_ArrayPointer/3_3",
+      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/03_ArrayPointer/3_3/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

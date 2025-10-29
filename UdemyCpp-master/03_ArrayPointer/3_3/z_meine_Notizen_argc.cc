@@ -20,5 +20,5 @@ int main(int argc, char **argv)//wie schon oben erwähnt, argc stht für Argumen
 }
 
 //zum Compilieren soll man  "g++ -std=c++17 -Wall -Wextra -O2 z_meine_Notizen_argc.cc -o z_meine_notizen_argc.exe" in Terminal wo man ih haben möchte eingeben und es wird
-//"z_meine_notizen_argc.exe" zum Ausführen in Terminal einfach z_meine_notizen_argc.exe eingeben und noch mehr Argument
+//"z_meine_notizen_argc.exe" zum Ausführen in Terminal einfach z_meine_notizen_argc.exe eingeben und noch mehr Argumentcd
 
