@@ -1,11 +1,11 @@
 #include <cstdint>
 #include <iostream>
 
-// static constexpr float PI = 3.14159; // PRIVATE
+// static constexpr float PI = 3.14159; // PRIVATE kann nur in diesem Datei gelesen werden.
 
 namespace // anonym. namespace
 {
-constexpr float PI = 3.14159; // PRIVATE
+constexpr float PI = 3.14159; // PRIVATE kann nur in diesem Datei gelesen werden.
 };
 
 float circle_area(const float radius)
