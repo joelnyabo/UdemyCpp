@@ -78,8 +78,8 @@ int main()
 {
     auto permission_dan = Permissionlevel::STUDENT;
     auto Permission_Jöel = Permissionlevel::PROF;
-    Userdata dan = {"Dannick", 14, Permissionlevel::STUDENT};
-    Userdata joel = {"joel", 07, Permission_Jöel };
+    Userdata dan = {.name ="Dannick", .id=14, .permission = Permissionlevel::STUDENT};//Designated Struct Initializer
+    auto joel =  Userdata{.name = "joel", .id = 07, .permission = Permission_Jöel };
 
     switch ( permission_dan)
     {
