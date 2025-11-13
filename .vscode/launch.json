@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/ComputerGame5/_Start",
-      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/ComputerGame5/_Start/build/Debug/outDebug",
+      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/05_Vector",
+      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/05_Vector/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
