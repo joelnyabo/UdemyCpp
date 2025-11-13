@@ -1,6 +1,7 @@
 #include<iostream>
 #include<cstdint>
 #include<vector>
+
 void aus(std::vector<std::int32_t> &v)
 {
   for(auto it = v.begin(); it!=v.end(); it++)
