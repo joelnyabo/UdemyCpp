@@ -1,71 +1,107 @@
-#include <cstdint>
-#include <iostream>
+#include<iostream>
+#include"Game.h"
 
-#include "Game.h"
 
-namespace
+  constexpr auto static LINE = 5U;
+  constexpr auto static COL= 5U;
+  const auto static BOUNDARY= '|';
+  const auto static LEER = '.';
+  const auto static PLAYER = 'P';
+  const auto static LEFT = 'l';
+  const auto static RIGHT = 'r';
+  const auto static UP = 'u';
+  const auto static DOWN = 'd';
+  char direction;
+  static Coordinates position{.x = 0, .y = 0};
+  Coordinates spieler{.x = 0, .y = 0};
+
+
+
+
+bool is_finished(const Coordinates &player)
 {
-constexpr std::uint32_t LEN_X = 10U;
-constexpr std::uint32_t START = 0U;
-constexpr std::uint32_t GOAL = 9U;
-constexpr char LEFT = 'a';
-constexpr char RIGHT = 'd';
-}; // namespace
-
-bool is_finished(const std::uint32_t player)
-{
-    return player == GOAL;
+   return (player.x == LINE-1 && player.y == COL-1) ? true : false;
 }
 
-void print_game_state(const std::uint32_t player)
+
+void print_game_state(const Coordinates player)
 {
-    for (std::uint32_t i = START; i < LEN_X; i++)
+
+ for(std::size_t i=0; i<static_cast<std::size_t>(LINE); ++i)
+ {
+    for(std::size_t j=0; j<static_cast<std::size_t>(COL); ++j)
     {
-        if (i == player)
+        if((i == position.x && j == position.y) || is_finished(player))
         {
-            std::cout << 'P';
+            std::cout<<PLAYER;
         }
-        else if (i == GOAL || i == START)
+        else if( i == LINE-1 && j == COL-1 && !is_finished(player))
         {
-            std::cout << '|';
+            std::cout<<BOUNDARY;
         }
         else
         {
-            std::cout << '.';
+            std::cout<<LEER;
         }
     }
+    std::cout<<"\n";
+ }
 }
 
-void execute_move(std::uint32_t &player, const char move)
+
+void execute_move(Coordinates &player, const char move)
 {
-    if (LEFT == move && player > 0)
-    {
-        player--;
-    }
-    else if (RIGHT == move && player < (LEN_X - 1))
-    {
-        player++;
-    }
-    else
-    {
-        std::cout << "Unrecognized move!\n";
-    }
+
+ switch(move)
+ {
+    case LEFT:
+      if( !is_finished(player) && player.y>0 )
+      {
+        player.y--;
+      }
+      else if( player.y == 0 && player.x != 0 )
+      {
+        player.x--;
+        player.y = 4;
+      }
+    break;
+
+    case RIGHT:
+      if( !is_finished(player) && player.y<4 )
+      {
+        player.y++;
+      }
+      else if( !is_finished(player) && player.y == 4 )
+      {
+        player.x++;
+        player.y = 0;
+      }
+    break;
+
+    case UP:
+      if( !is_finished(player) && player.x>0 )
+      {
+        player.x--;
+      }
+    break;
+
+    case DOWN:
+      if( !is_finished(player) && player.x<4 )
+      {
+        player.x++;
+      }
+    break;
+ }
+
 }
 
 void game()
 {
-    std::uint32_t player = START;
-    char move;
+    do{
+        print_game_state(position);
+        std::cin>>direction;
+        execute_move(position, direction);
 
-    while (true)
-    {
-        if (is_finished(player))
-        {
-            break;
-        }
+    }while(!is_finished(position));
 
-        print_game_state(player);
-        std::cin >> move;
-        execute_move(player, move);
-    }
 }

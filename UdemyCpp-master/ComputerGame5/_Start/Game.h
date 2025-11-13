@@ -1,11 +1,16 @@
 #pragma once
-
 #include <cstdint>
 
-bool is_finished(const std::uint32_t player);
+struct Coordinates
+{
+    std::int32_t x;
+    std::int32_t y;
+};
 
-void print_game_state(const std::uint32_t player);
+bool is_finished(const Coordinates &player);
 
-void execute_move(std::uint32_t &player, const char move);
+void print_game_state(const Coordinates player);
+
+void execute_move(Coordinates &player, const char move);
 
 void game();
