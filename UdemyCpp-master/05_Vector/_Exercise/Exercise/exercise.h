@@ -11,3 +11,6 @@ VectorT max_row_values(MatrixT &matrix);
 
 // Exercise 3
 ValueT sort_and_max(VectorT &vec);
+
+double max(const VectorT &vec);
+bool aufsteigen(const double a, const double b);

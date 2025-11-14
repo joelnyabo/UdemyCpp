@@ -28,7 +28,4 @@ int main()
     auto neu_neg = std::remove_if(vec.begin(), vec.end(), pos);
     vec.erase(neu_neg, vec.end());
     aus(vec);
-
-
-
 }

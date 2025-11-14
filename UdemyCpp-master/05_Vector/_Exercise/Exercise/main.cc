@@ -1,3 +1,4 @@
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
@@ -29,7 +30,7 @@ void printVector(const VectorT &vec)
 int main()
 {
     // Exercise 1
-
+    MatrixT matrix{{12, 34, 56}, {2, 4, 1}, {5, 9, 6}};
     std::cout << "Exercise 1:\n";
     printMatrix(matrix);
 
