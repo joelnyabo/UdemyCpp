@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/06_String/meine_aufgabe/program",
-      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/06_String/meine_aufgabe/program/build/Debug/outDebug",
+      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/06_String/_Exercise/Solution",
+      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/06_String/_Exercise/Solution/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

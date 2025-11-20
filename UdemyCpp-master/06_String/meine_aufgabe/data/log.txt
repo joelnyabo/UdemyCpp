@@ -1,0 +1,5 @@
+[INFO] Start program
+[WARNING] Low memory
+[INFO] Loading modules
+[ERROR] Module X failed
+[INFO] Shutdown
