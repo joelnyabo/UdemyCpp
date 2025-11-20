@@ -96,18 +96,59 @@ int main()
     zustand_player(datei_name, p);
  //add_in_datei(datei_name, 3);
 }
-#else
+
 
 #include<iostream>
 #include<filesystem>
+#include<string>
+#include<array>
+#include<vector>
 
 int main()
 {
-    std::filesystem::path workspace_path = std::filesystem::current_path();
-    std::cout<<workspace_path;
-    auto chapter_path = workspace_path / "06_String";
-    std::cout<<chapter_path;
-
+    std::size_t i =0;
+    auto file_sammler = std::vector<std::filesystem::path>(30, std::filesystem::path{});
+   auto current_pfad = std::filesystem::current_path();
+   for(auto it = std::filesystem::directory_iterator(current_pfad); it!=std::filesystem::directory_iterator{}; it++)
+   {
+      if(std::filesystem::is_regular_file(*it) && (static_cast<std::filesystem::path>(*it).extension() == ".cc"))
+     {
+       file_sammler[i++] = *it;
+     }
+   }
+for(auto at : file_sammler)
+{
+    if(at != "")
+    {
+      std::cout<<at<<"\n";
+    }
+}
 
 }
+#else
+#include<iostream>
+#include<filesystem>
+#include<string>
+#include<array>
+#include<vector>
+int main()
+{
+  auto new_directory_path = std::filesystem::current_path();
+  new_directory_path /= "test";
+  if(!std::filesystem::exists(new_directory_path))
+  {
+    std::filesystem::create_directories(new_directory_path);
+  }
+  auto file_to_copy = std::filesystem::current_path();
+  file_to_copy /= "FileSystem2.cc";
+  new_directory_path /= "FileSystem2.cc";
+ if(!std::filesystem::exists(new_directory_path))
+ {
+    std::filesystem::copy_file(file_to_copy, new_directory_path);
+ }
+
+}
+
+
+
 #endif
