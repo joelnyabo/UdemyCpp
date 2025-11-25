@@ -12,10 +12,10 @@ struct Coordinate
 enum class ConsoleInput
 {
     INVALID,
-    LEFT = 'a',
-    RIGHT = 'd',
-    UP = 'w',
-    DOWN = 's',
+    LEFT = 'l',
+    RIGHT = 'r',
+    UP = 'u',
+    DOWN = 'd',
 };
 
 bool is_finished(const Coordinate &player);

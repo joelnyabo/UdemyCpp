@@ -1,99 +1,149 @@
 #include <cstdint>
 #include <iostream>
+#include <vector>
 
 #include "Game.h"
+const auto obstacles = std::vector<Coordinate>{ Coordinate{.x = 1, .y = 1}, Coordinate{.x = 2, .y = 2}, Coordinate{.x = 3, .y = 3}};
+const auto PLAYER= 'P';
+std::size_t ROW = 5;
+std::size_t COL = 5;
 
-namespace
+bool lost(const Coordinate& player, const std::vector<Coordinate> &ob)
 {
-constexpr static auto LEN_X = 5U;
-constexpr static auto LEN_Y = 5U;
-constexpr static auto START = Coordinate{.x = 0, .y = 0};
-constexpr static auto GOAL = Coordinate{.x = LEN_X - 1, .y = LEN_Y - 1};
-}; // namespace
+   for(auto it : ob)
+   {
+      if((it.x == player.x) && (it.y == player.y) )
+      {
+        return true;
+      }
+   }
+  return false;
+}
+
 
 bool is_finished(const Coordinate &player)
 {
-    return player.x == GOAL.x && player.y == GOAL.y;
+  return (player.x == static_cast<std::uint32_t>(ROW)-1 && player.y == static_cast<std::uint32_t>(COL)-1) ? true : false;
 }
 
-void print_game_state(const Coordinate &player)
+void print_game_state(const Coordinate &player, const std::vector<Coordinate> &ob)
 {
-    for (std::uint32_t i = 0; i < LEN_X; i++)
+  for(std::size_t i = 0; i<ROW; i++)
+  {
+    for(std::size_t j = 0; j<COL ; j++)
     {
-        for (std::uint32_t j = 0; j < LEN_Y; j++)
+        if(static_cast<std::uint32_t>(i) == player.x && static_cast<std::uint32_t>(j) == player.y)
         {
-            if (i == player.x && j == player.y)
-            {
-                std::cout << 'P';
-            }
-            else if ((i == GOAL.x && j == GOAL.y) ||
-                     (i == START.x && j == START.y))
-            {
-                std::cout << '|';
-            }
-            else
-            {
-                std::cout << '.';
-            }
+          std::cout<<PLAYER;
         }
-        std::cout << '\n';
+        else if( (static_cast<std::uint32_t>(i) == ob[0].x && static_cast<std::uint32_t>(j) == ob[0].y) || (static_cast<std::uint32_t>(i) == ob[1].x && static_cast<std::uint32_t>(j) == ob[1].y) || (static_cast<std::uint32_t>(i) == ob[2].x && static_cast<std::uint32_t>(j) == ob[2].y) )
+        {
+           std::cout<<"X";
+        }
+        else if(i == ROW-1 && j == COL-1)
+        {
+            std::cout<<"|";
+        }
+        else
+        {
+            std::cout<<".";
+        }
     }
-    std::cout << '\n';
+    std::cout<<"\n";
+  }
 }
 
-void execute_move(Coordinate &player, const ConsoleInput move)
+void execute_move(Coordinate &player, const ConsoleInput move, const std::vector<Coordinate> &ob)
 {
-    switch (move)
-    {
-    case ConsoleInput::LEFT:
-    {
-        if (player.y > 0)
-            player.y--;
-        break;
+   switch(move)
+   {
+     case ConsoleInput::RIGHT:
+        if(!is_finished(player) && !lost(player, ob))
+        {
+           if(player.y < COL-1)
+           {
+             player.y++;
+           }
+           else
+           {
+             player.x++;
+             player.y = 1;
+           }
+        }
+     break;
+     case ConsoleInput::LEFT:
+        if(!is_finished(player) && !lost(player, ob) && (player.x != 0 && player.y!=0))
+        {
+           if(player.y > 0)
+           {
+             player.y--;
+           }
+           else
+           {
+             player.x--;
+             player.y = 5;
+           }
+        }
+     break;
+      case ConsoleInput::UP:
+        if(!is_finished(player) && !lost(player, ob) && player.x!=0)
+        {
+             player.x--;
+        }
+     break;
+      case ConsoleInput::DOWN:
+        if(!is_finished(player) && !lost(player, ob) && player.x!=5)
+        {
+          player.x++;
+        }
+     break;
+     case ConsoleInput::INVALID :
+      break;
+
     }
-    case ConsoleInput::RIGHT:
-    {
-        if (player.y < LEN_X - 1)
-            player.y++;
-        break;
-    }
-    case ConsoleInput::UP:
-    {
-        if (player.x > 0)
-            player.x--;
-        break;
-    }
-    case ConsoleInput::DOWN:
-    {
-        if (player.x < LEN_Y - 1)
-            player.x++;
-        break;
-    }
-    case ConsoleInput::INVALID:
-    default:
-    {
-        std::cout << "Unrecognized move!\n";
-        break;
-    }
-    }
+
 }
 
 void game()
 {
-    auto player = START;
-    auto move = ConsoleInput::INVALID;
-    auto move_char = ' ';
-
-    while (true)
+  Coordinate player{.x=0, .y=0};
+  char move =' ';
+ while(true)
+ {
+    print_game_state(player, obstacles);
+    std::cin>>move;
+    if(!is_finished(player) || !lost(player, obstacles))
     {
-        if (is_finished(player))
-        {
-            break;
-        }
+       switch (move)
+       {
+         case 'l':
+          execute_move(player, ConsoleInput::LEFT, obstacles);
+         break;
 
-        print_game_state(player);
-        std::cin >> move_char;
-        move = static_cast<ConsoleInput>(move_char);
-        execute_move(player, move);
+         case 'r':
+          execute_move(player, ConsoleInput::RIGHT, obstacles);
+         break;
+
+         case 'd':
+          execute_move(player, ConsoleInput::DOWN, obstacles);
+         break;
+
+         case 'u':
+          execute_move(player, ConsoleInput::UP, obstacles);
+         break;
+       }
+
     }
+    else if(!is_finished(player) && lost(player, obstacles))
+    {
+       std::cout<<"\nYou lost!\n";
+       exit(0);
+    }
+    else
+    {
+        std::cout<<"\nYou won!\n";
+        break;
+    }
+}
+
 }

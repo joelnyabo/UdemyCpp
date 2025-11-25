@@ -3,127 +3,128 @@
 #include <vector>
 
 #include "Game.h"
+const auto obstacles = std::vector<Coordinate>{ Coordinate{.x = 1, .y = 1}, Coordinate{.x = 2, .y = 2}, Coordinate{.x = 3, .y = 3}};
+const auto PLAYER= 'P';
+std::size_t ROW = 5;
+std::size_t COL = 5;
 
-namespace
+bool lost(const Coordinate& player)
 {
-constexpr static auto NUM_OBSTACLES = 3U;
-constexpr static auto LEN_X = 5U;
-constexpr static auto LEN_Y = 5U;
-constexpr static auto START = Coordinate{.x = 0, .y = 0};
-constexpr static auto GOAL = Coordinate{.x = LEN_X - 1, .y = LEN_Y - 1};
-}; // namespace
+   for(auto it : obstacles)
+   {
+      return ((it.x == player.x) && (it.y == player.y) ? true : false);
+   }
+}
+
 
 bool is_finished(const Coordinate &player)
 {
-    return player.x == GOAL.x && player.y == GOAL.y;
+  return (player.x == ROW-1 && player.y == COL-1) ? true : false;
 }
 
-void print_game_state(const Coordinate &player,
-                      const std::vector<Coordinate> &obstacles)
+void print_game_state(const Coordinate &player, const std::vector<Coordinate> &obstacles)
 {
-    auto game_state = std::vector<std::string>(LEN_X, std::string(LEN_Y, '.'));
-    for (std::uint32_t i = 0; i < LEN_X; i++)
+  for(auto i = 0; i<ROW; i++)
+  {
+    for(auto j = 0; j<COL; j++)
     {
-        for (std::uint32_t j = 0; j < LEN_Y; j++)
+        if(i == player.x && j == player.y)
         {
-            if (i == player.x && j == player.y)
-            {
-                game_state[i][j] = 'P';
-            }
-            else if ((i == GOAL.x && j == GOAL.y) ||
-                     (i == START.x && j == START.y))
-            {
-                game_state[i][j] = '|';
-            }
+          std::cout<<PLAYER;
+        }
+        else if( (i == obstacles[0].x && j == obstacles[0].y) || (i == obstacles[1].x && j == obstacles[1].y) || (i == obstacles[2].x && j == obstacles[2].y) )
+        {
+           std::cout<<"X";
+        }
+        else if(i == ROW-1 && j == COL-1)
+        {
+            std::cout<<"|";
+        }
+        else
+        {
+            std::cout<<".";
         }
     }
-    for (const auto &obs : obstacles)
-    {
-        game_state[obs.x][obs.y] = 'X';
-    }
-
-    for (const auto &row : game_state)
-    {
-        std::cout << row << '\n';
-    }
+    std::cout<<"\n";
+  }
 }
 
-bool has_obstacle(const Coordinate &coord,
-                  const std::vector<Coordinate> &obstacles)
+void execute_move(Coordinate &player, const ConsoleInput move, const std::vector<Coordinate> &obstacles)
 {
-    for (const auto &obs : obstacles)
-    {
-        if (coord.x == obs.x && coord.y == obs.y)
-            return true;
+   switch (move)
+   {
+     case ConsoleInput::RIGHT:
+        if(!is_finished(player) && !lost(player))
+        {
+           if(player.y < COL-1)
+           {
+             player.y++;
+           }
+           else
+           {
+             player.x++;
+             player.y == 1;
+           }
+        }
+     break;
+     case ConsoleInput::LEFT:
+        if(!is_finished(player) && !lost(player) && (player.x != 0 && player.y!=0))
+        {
+           if(player.y > 0)
+           {
+             player.y--;
+           }
+           else
+           {
+             player.x--;
+             player.y == 5;
+           }
+        }
+     break;
+      case ConsoleInput::UP:
+        if(!is_finished(player) && !lost(player) && player.x!=0)
+        {
+             player.x--;
+        }
+     break;
+      case ConsoleInput::DOWN:
+        if(!is_finished(player) && !lost(player) && player.x!=5)
+        {
+          player.x++;
+        }
+     break;
+
     }
 
-    return false;
-}
-
-void execute_move(Coordinate &player,
-                  const ConsoleInput move,
-                  const std::vector<Coordinate> &obstacles)
-{
-    switch (move)
-    {
-    case ConsoleInput::LEFT:
-    {
-        if (player.y > 0 &&
-            !has_obstacle(Coordinate{player.x, player.y - 1U}, obstacles))
-            player.y--;
-        break;
-    }
-    case ConsoleInput::RIGHT:
-    {
-        if (player.y < LEN_X - 1 &&
-            !has_obstacle(Coordinate{player.x, player.y + 1U}, obstacles))
-            player.y++;
-        break;
-    }
-    case ConsoleInput::UP:
-    {
-        if (player.x > 0 &&
-            !has_obstacle(Coordinate{player.x - 1U, player.y}, obstacles))
-            player.x--;
-        break;
-    }
-    case ConsoleInput::DOWN:
-    {
-        if (player.x < LEN_Y - 1 &&
-            !has_obstacle(Coordinate{player.x + 1U, player.y}, obstacles))
-            player.x++;
-        break;
-    }
-    case ConsoleInput::INVALID:
-    default:
-    {
-        std::cout << "Unrecognized move!\n";
-        break;
-    }
-    }
 }
 
 void game()
 {
-    const auto obstacles = std::vector<Coordinate>{
-        Coordinate{.x = 1, .y = 1},
-        Coordinate{.x = 2, .y = 2},
-        Coordinate{.x = 3, .y = 3},
-    };
-    auto player = START;
-    auto move = ConsoleInput::INVALID;
-    auto move_char = ' ';
-
-    while (true)
+  Coordinate player{.x=0, .y=0};
+  char move;
+  do
+  {
+    print_game_state(player, obstacles);
+    std::cin>>move;
+    switch (move)
     {
-        if (is_finished(player))
-        {
-            break;
-        }
+       case 'l':
+         execute_move(player, ConsoleInput::LEFT, obstacles);
+       break;
 
-        print_game_state(player, obstacles);
-        std::cin >> move_char;
-        move = static_cast<ConsoleInput>(move_char);
-        execute_move(player, move, obstacles);
+       case 'r':
+         execute_move(player, ConsoleInput::RIGHT, obstacles);
+       break;
+
+       case 'd':
+         execute_move(player, ConsoleInput::DOWN, obstacles);
+       break;
+
+       case 'u':
+         execute_move(player, ConsoleInput::UP, obstacles);
+       break;
     }
+
+  }while(!is_finished(player));
+
 }
