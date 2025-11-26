@@ -1,7 +1,6 @@
 #include <cstdint>
 #include <iostream>
 #include <vector>
-
 #include "Game.h"
 const auto obstacles = std::vector<Coordinate>{ Coordinate{.x = 1, .y = 1}, Coordinate{.x = 2, .y = 2}, Coordinate{.x = 3, .y = 3}};
 const auto PLAYER= 'P';
@@ -12,8 +11,12 @@ bool lost(const Coordinate& player)
 {
    for(auto it : obstacles)
    {
-      return ((it.x == player.x) && (it.y == player.y) ? true : false);
+      if((it.x == player.x) && (it.y == player.y))
+      {
+        return true;
+      }
    }
+   return false;
 }
 
 
@@ -58,35 +61,38 @@ void execute_move(Coordinate &player, const ConsoleInput move, const std::vector
         {
            if(player.y < COL-1)
            {
-             player.y++;
+            player.y++;
            }
            else
            {
-             player.x++;
-             player.y == 1;
+            player.x++;
+            player.y == 1;
            }
         }
      break;
+
      case ConsoleInput::LEFT:
         if(!is_finished(player) && !lost(player) && (player.x != 0 && player.y!=0))
         {
            if(player.y > 0)
            {
-             player.y--;
+            player.y--;
            }
            else
            {
-             player.x--;
-             player.y == 5;
+            player.x--;
+            player.y == 5;
            }
         }
      break;
+
       case ConsoleInput::UP:
         if(!is_finished(player) && !lost(player) && player.x!=0)
         {
-             player.x--;
+         player.x--;
         }
      break;
+
       case ConsoleInput::DOWN:
         if(!is_finished(player) && !lost(player) && player.x!=5)
         {
@@ -102,7 +108,7 @@ void game()
 {
   Coordinate player{.x=0, .y=0};
   char move;
-  do
+  while(!is_finished(player))
   {
     print_game_state(player, obstacles);
     std::cin>>move;
@@ -124,7 +130,6 @@ void game()
          execute_move(player, ConsoleInput::UP, obstacles);
        break;
     }
-
-  }while(!is_finished(player));
+  }
 
 }

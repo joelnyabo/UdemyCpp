@@ -107,43 +107,31 @@ void execute_move(Coordinate &player, const ConsoleInput move, const std::vector
 void game()
 {
   Coordinate player{.x=0, .y=0};
-  char move =' ';
- while(true)
- {
+  char move ;
+  while(true)
+  {
     print_game_state(player, obstacles);
-    std::cin>>move;
-    if(!is_finished(player) || !lost(player, obstacles))
+    std::cin >> move;
+
+    if(is_finished(player))
     {
-       switch (move)
-       {
-         case 'l':
-          execute_move(player, ConsoleInput::LEFT, obstacles);
-         break;
-
-         case 'r':
-          execute_move(player, ConsoleInput::RIGHT, obstacles);
-         break;
-
-         case 'd':
-          execute_move(player, ConsoleInput::DOWN, obstacles);
-         break;
-
-         case 'u':
-          execute_move(player, ConsoleInput::UP, obstacles);
-         break;
-       }
-
-    }
-    else if(!is_finished(player) && lost(player, obstacles))
-    {
-       std::cout<<"\nYou lost!\n";
-       exit(0);
-    }
-    else
-    {
-        std::cout<<"\nYou won!\n";
+        std::cout << "\nYou won!\n";
         break;
     }
-}
 
+    if(lost(player, obstacles))
+    {
+        std::cout << "\nYou lost!\n";
+        break;
+    }
+
+    // Spiel geht weiter
+    switch (move)
+    {
+        case 'l': execute_move(player, ConsoleInput::LEFT, obstacles); break;
+        case 'r': execute_move(player, ConsoleInput::RIGHT, obstacles); break;
+        case 'd': execute_move(player, ConsoleInput::DOWN, obstacles); break;
+        case 'u': execute_move(player, ConsoleInput::UP, obstacles); break;
+    }
+   }
 }

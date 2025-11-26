@@ -20,5 +20,4 @@ int main()
 
 //Anstatt Tuple oder pair zu nutzen, könnte man am besten Struct oder Class verwendet. aber tuple ider pair könnten gern beutz werden wenn man in einer Funktion mehrere Sachen zurückgeben möchte.
 
-
 }
