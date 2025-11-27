@@ -10,7 +10,7 @@
 int main()
 {
     // Exercise 1
-    auto friends = Friends{};
+    auto friends = std::map<std::string, std::pair<std::int32_t, std::int32_t>>{{"Dann",{25, 65}}, {"Joel",{13, 45}}};
 
     // ...
 
