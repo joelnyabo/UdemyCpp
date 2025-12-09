@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/07_Container/_Exercise/Exercise",
-      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/07_Container/_Exercise/Exercise/build/Debug/outDebug",
+      "cwd": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/08_STL",
+      "program": "c:/Users/njoya/Documents/C++/UdemyCpp-master/UdemyCpp-master/08_STL/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

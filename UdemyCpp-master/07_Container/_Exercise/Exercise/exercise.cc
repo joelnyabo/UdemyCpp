@@ -9,7 +9,7 @@ std::int32_t oldest(const std::map<std::string, std::pair<std::int32_t, std::int
     std::int32_t max = 0;
     for(auto &it : friends)
     {
-       max = (max > it.second.first)? max : it.second.first;
+        max = (max > it.second.first)? max : it.second.first;
     }
     return max;
 }
