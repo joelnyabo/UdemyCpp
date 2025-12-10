@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 #include <vector>
-
+#include<algorithm>
 using ClockType = std::chrono::steady_clock;
 using ClockRes = std::chrono::microseconds;
 
