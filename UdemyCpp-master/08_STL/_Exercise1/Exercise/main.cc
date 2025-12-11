@@ -15,10 +15,10 @@ int main()
     auto gen = std::random_device{};
     auto dist = std::bernoulli_distribution(0.5);
 
-    auto target = BinaryArray(20, false);
+    auto target = std::vector<bool>(20, false);
     std::generate(target.begin(), target.end(), [&] { return dist(gen); });
 
-    auto input = BinaryArray(target.begin(), target.end());
+    auto input = std::vector<bool>(target.begin(), target.end());
     std::shuffle(input.begin(), input.end(), std::default_random_engine{42});
 
     for (std::size_t i = 0; i < target.size(); ++i)
@@ -47,7 +47,7 @@ int main()
                                       target.begin());
     std::cout << '\n' << "Vectors are equal: " << is_equal2 << '\n';
 
-    // Exercise 2
+  /*  // Exercise 2
     std::cout << '\n' << "Starting exercise 2";
     start = ClockType::now();
     const auto result_exercise2 = smart_shuffle_till_equal(target, input);
@@ -61,6 +61,6 @@ int main()
                                       result_exercise2.end(),
                                       target.begin());
     std::cout << '\n' << "Vectors are equal: " << is_equal3 << '\n';
-
+*/
     return 0;
 }

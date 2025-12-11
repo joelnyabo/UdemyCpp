@@ -2,11 +2,11 @@
 
 #include <vector>
 
-using BinaryArray = std::vector<bool>;
+
 
 // Exercise 2
-BinaryArray shuffle_till_equal(const BinaryArray &target, BinaryArray input);
+std::vector<bool>shuffle_till_equal(const std::vector<bool> &target, std::vector<bool> input);
 
 // Exercise 3
-BinaryArray smart_shuffle_till_equal(const BinaryArray &target,
-                                     BinaryArray input);
+std::vector<bool> smart_shuffle_till_equal(const std::vector<bool> &target,
+                                     std::vector<bool> input);
