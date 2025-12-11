@@ -6,9 +6,9 @@
 //#define MODE
 std::int32_t generator()
 {
-    auto seed = std::random_device{};
-    auto gen = std::mt19937{seed()};
-    auto dist = std::uniform_int_distribution<std::int32_t>{-10, 10};
+    static auto seed = std::random_device{};
+    static auto gen = std::mt19937{seed()};
+    static auto dist = std::uniform_int_distribution<std::int32_t>{-10, 10};
     return dist(gen);
 }
 
